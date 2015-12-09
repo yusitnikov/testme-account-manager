@@ -1,4 +1,4 @@
-# Kaltura TestMe Console Account Manager
+# TestMe Account Manager
 User Script for managing accounts in Kaltura TestMe Console and create sessions easily.
 
 ## Release Notes
