@@ -11,7 +11,7 @@ User Script for managing accounts in Kaltura TestMe Console and create sessions 
 
 ## Installation
 - Install browser extension for running user scripts: GreaseMonkey for Firefox, TamperMonkey for Google Chrome and family
-- Install the script by going to the [following link|https://github.com/yusitnikov/testme-account-manager/blob/master/kaltura-testme-account-manager.user.js]
+- Install the script by going to the following link: https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
 
 ## Usage
 - Go to Kaltura TestMe Console

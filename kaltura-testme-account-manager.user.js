@@ -3,7 +3,7 @@
 // @description User Script for managing accounts in Kaltura TestMe Console and create sessions easily
 // @author      yusitnikov
 // @version     1.0
-// @updateURL   https://github.com/yusitnikov/testme-account-manager/blob/master/kaltura-testme-account-manager.user.js
+// @updateURL   https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
 // @include     http://www.kaltura.com/api_v3/testme/*
 // @include     https://www.kaltura.com/api_v3/testme/*
 // @exclude     http://www.kaltura.com/api_v3/testme/client-libs.php
