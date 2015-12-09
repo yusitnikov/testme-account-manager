@@ -3,10 +3,13 @@ User Script for managing accounts in Kaltura TestMe Console and create sessions 
 
 ## Release Notes
 
+### v1.3
+- Enable "ks" field on startup
+
 ### v1.0
 - Manage Kaltura accounts
 - Generate KS on account change
-- Show selected partner name under ks field
+- Show selected partner name under "ks" field
 
 
 ## Installation

@@ -2,7 +2,7 @@
 // @name        TestMe Account Manager
 // @description User Script for managing accounts in Kaltura TestMe Console and create sessions easily
 // @author      yusitnikov
-// @version     1.2
+// @version     1.3
 // @updateURL   https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
 // @include     http://www.kaltura.com/api_v3/testme/*
 // @include     https://www.kaltura.com/api_v3/testme/*
@@ -18,21 +18,21 @@
 (function() {
 	// prevent from loading twice
 	if ($('#ktksm-li').size()) return;
-	
+
 	var baseUrl = location.protocol + '//' + location.hostname + '/api_v3/';
-	
+
 	var map = GM_getValue('map') || {};
-	
 	function saveMap() {
 		GM_setValue('map', map);
 	}
-	
+
 	var $li = $('<li id="ktksm-li"><select></select></li>'), $select = $li.find('select'),
 		$li2 = $('<li><button>+</button></li>'), $add = $li2.find('button'),
 		$li3 = $('<li><button>-</button></li>'), $drop = $li3.find('button'),
 		$ksDetails = $('<div></div>'), $ks = $('#ks');
 	$('#kmcSubMenu').append($li).append($li2).append($li3);
 	$ks.parent().append($ksDetails);
+	$ks.click();
 
 	var requestedPid;
 	$select.change(function() {
@@ -84,7 +84,7 @@
 		saveMap();
 		addOption(pid, true);
 	});
-	
+
 	$drop.click(function() {
 		var pid = $select.val();
 		delete map[pid];
