@@ -32,7 +32,6 @@
 		$ksDetails = $('<div></div>'), $ks = $('#ks');
 	$('#kmcSubMenu').append($li).append($li2).append($li3);
 	$ks.parent().append($ksDetails);
-	$ks.click();
 
 	var requestedPid;
 	$select.change(function() {
@@ -52,7 +51,7 @@
 					alert(errMsg);
 					return;
 				}
-				$ks.val(ks);
+				$ks.val(ks).click();
 				$.ajax({
 					url: baseUrl + '?service=partner&action=getInfo&format=1&ks=' + ks,
 					dataType: 'json',
