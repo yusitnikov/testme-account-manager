@@ -2,7 +2,7 @@
 // @name        TestMe Account Manager
 // @description User Script for managing accounts in Kaltura TestMe Console and create sessions easily
 // @author      yusitnikov
-// @version     1.3
+// @version     1.4
 // @updateURL   https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
 // @include     http://www.kaltura.com/api_v3/testme/*
 // @include     https://www.kaltura.com/api_v3/testme/*
@@ -29,7 +29,7 @@
 	var $li = $('<li id="ktksm-li"><select></select></li>'), $select = $li.find('select'),
 		$li2 = $('<li><button>+</button></li>'), $add = $li2.find('button'),
 		$li3 = $('<li><button>-</button></li>'), $drop = $li3.find('button'),
-		$ksDetails = $('<div></div>'), $ks = $('#ks');
+		$ksDetails = $('<div></div>'), $ks = $('[for=ks]+input');
 	$('#kmcSubMenu').append($li).append($li2).append($li3);
 	$ks.parent().append($ksDetails);
 

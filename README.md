@@ -3,6 +3,9 @@ User Script for managing accounts in Kaltura TestMe Console and create sessions 
 
 ## Release Notes
 
+### v1.4
+- Support new TestMe Console interface
+
 ### v1.3
 - Enable "ks" field on startup
 
