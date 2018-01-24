@@ -2,7 +2,7 @@
 // @name        TestMe Account Manager
 // @description User Script for managing accounts in Kaltura TestMe Console and create sessions easily
 // @author      yusitnikov
-// @version     1.6
+// @version     1.7
 // @updateURL   https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
 // @include     http://*.kaltura.com/api_v3/testme/*
 // @include     https://*.kaltura.com/api_v3/testme/*
@@ -21,7 +21,8 @@
 
 	var baseUrl = location.protocol + '//' + location.hostname + '/api_v3/';
 
-	var map = GM_getValue('map') || {};
+	var map = GM_getValue('map') || {},
+		lastPid = GM_getValue('pid') || '';
 	function saveMap() {
 		GM_setValue('map', map);
 	}
@@ -37,6 +38,7 @@
 	$select.change(function() {
 		var pid = this.value;
 		if (!pid) return;
+		GM_setValue('pid', pid);
 		var info = map[pid], name = info.name, errMsg = 'Failed to create KS for ' + name;
 		$ks.val('');
 		$ksDetails.html('&nbsp;');
@@ -97,6 +99,11 @@
 		if (select) $select.val(pid).change();
 	}
 
-	for (var pid in map) addOption(pid);
+	for (var pid in map) {
+		if (map.hasOwnProperty(pid)) {
+			// noinspection EqualityComparisonWithCoercionJS
+            addOption(pid, pid == lastPid);
+        }
+    }
 	if (Object.keys(map).length) $select.change();
 })();
