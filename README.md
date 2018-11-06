@@ -36,4 +36,4 @@ User Script for managing accounts in Kaltura TestMe Console and create sessions 
 - Add your account details by pressing "+" button in the page header
 - Switch accounts by selecting them in the drop-down
 
-![Screenshot](https://i.gyazo.com/cb3da10bba79f52f77bd954d2654108e.png)
+![Screenshot](https://i.gyazo.com/06cb99993aeb4520d288c6c783d2f586.png)
