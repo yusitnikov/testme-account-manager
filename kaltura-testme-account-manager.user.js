@@ -2,12 +2,12 @@
 // @name        TestMe Account Manager
 // @description User Script for managing accounts in Kaltura TestMe Console and create sessions easily
 // @author      yusitnikov
-// @version     1.7
+// @version     1.8
 // @updateURL   https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
-// @include     http://*.kaltura.com/api_v3/testme/*
-// @include     https://*.kaltura.com/api_v3/testme/*
-// @exclude     http://*.kaltura.com/api_v3/testme/client-libs.php
-// @exclude     https://*.kaltura.com/api_v3/testme/client-libs.php
+// @include     http://*/api_v3/testme/*
+// @include     https://*/api_v3/testme/*
+// @exclude     http://*/api_v3/testme/client-libs.php
+// @exclude     https://*/api_v3/testme/client-libs.php
 // @run-at      document-end
 // @require     https://code.jquery.com/jquery-2.1.4.min.js
 // @grant       GM_setValue
@@ -44,7 +44,7 @@
 		$ksDetails.html('&nbsp;');
 		requestedPid = pid;
 		$.ajax({
-			url: baseUrl + '?service=session&action=start&secret=' + info.secret + '&type=2&partnerId=' + pid + '&privileges=disableentitlement,enablecategorymoderation&format=1',
+			url: baseUrl + '?service=session&action=start&secret=' + info.secret + '&type=2&userId=admin&partnerId=' + pid + '&privileges=disableentitlement,enablecategorymoderation&format=1',
 			dataType: 'json',
 			success: function(ks) {
 				if (pid != requestedPid) return;
