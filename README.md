@@ -3,6 +3,18 @@ User Script for managing accounts in Kaltura TestMe Console and create sessions 
 
 ## Release Notes
 
+### v2.0
+- Introduce environments
+
+### v1.8
+- Allow all hosts, include userId in admin KS
+
+### v1.7
+- Save last selected PID
+
+### v1.6
+- Create KS with disableentitlement privilege
+
 ### v1.4
 - Support new TestMe Console interface
 
