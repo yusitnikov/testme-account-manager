@@ -16,12 +16,12 @@
 // ==/UserScript==
 
 (function() {
-	// prevent from loading twice
-	if ($('#ktksm-li').size()) return;
+    // prevent from loading twice
+    if ($('#ktksm-li').size()) return;
 
-	var baseUrl = location.protocol + '//' + location.hostname + '/api_v3/';
+    var baseUrl = location.protocol + '//' + location.hostname + '/api_v3/';
 
-	var host = location.hostname,
+    var host = location.hostname,
         envs = GM_getValue('envs') || { prod: 'prod' },
         requestedEnvMap = GM_getValue('env') || {},
         requestedEnv = requestedEnvMap[host] || 'prod',
@@ -33,23 +33,23 @@
     function saveEnvMap() {
         GM_setValue('envs', envs);
     }
-	function savePidMap() {
-		GM_setValue('mapbyenv', globalMap);
-	}
+    function savePidMap() {
+        GM_setValue('mapbyenv', globalMap);
+    }
 
-	var $li = $('<li id="ktksm-li"><select></select></li>'), $envSelect = $li.find('select'),
+    var $li = $('<li id="ktksm-li"><select></select></li>'), $envSelect = $li.find('select'),
         $li2 = $('<li><button>+</button></li>'), $addEnv = $li2.find('button'),
         $li3 = $('<li><button>-</button></li>'), $dropEnv = $li3.find('button'),
         $li4 = $('<li><select></select></li>'), $pidSelect = $li4.find('select'),
         $li5 = $('<li><button>Edit</button></li>'), $editMap = $li5.find('button'),
-		$li6 = $('<li><button>+</button></li>'), $addPid = $li6.find('button'),
+        $li6 = $('<li><button>+</button></li>'), $addPid = $li6.find('button'),
         $li7 = $('<li><button>-</button></li>'), $dropPid = $li7.find('button'),
-		$ksDetails = $('<div></div>'), $ks = $('[for=ks]+input');
-	$('#kmcSubMenu').append($li).append($li2).append($li3).append($li4).append($li5).append($li6).append($li7);
-	$ks.parent().append($ksDetails);
+        $ksDetails = $('<div></div>'), $ks = $('[for=ks]+input');
+    $('#kmcSubMenu').append($li).append($li2).append($li3).append($li4).append($li5).append($li6).append($li7);
+    $ks.parent().append($ksDetails);
 
-	function loadMapForCurrentEnv() {
-	    map = globalMap[requestedEnv] = globalMap[requestedEnv] || {};
+    function loadMapForCurrentEnv() {
+        map = globalMap[requestedEnv] = globalMap[requestedEnv] || {};
         requestedPid = requestedPidMap[requestedEnv] || GM_getValue('pid') || '';
 
         disablePidChange = true;
@@ -97,43 +97,43 @@
     });
 
     $pidSelect.change(function() {
-	    if (disablePidChange) return;
-		var pid = this.value;
-		if (!pid) return;
+        if (disablePidChange) return;
+        var pid = this.value;
+        if (!pid) return;
         requestedPid = requestedPidMap[requestedEnv] = pid;
         GM_setValue('pidbyenv', requestedPidMap);
-		var info = map[pid], name = info.name, errMsg = 'Failed to create KS for ' + name;
-		$ks.val('');
-		$ksDetails.html('&nbsp;');
-		$.ajax({
-			url: baseUrl + '?service=session&action=start&secret=' + info.secret + '&type=2&userId=admin&partnerId=' + pid + '&privileges=disableentitlement,enablecategorymoderation&format=1',
-			dataType: 'json',
-			success: function(ks) {
-				if (pid != requestedPid) return;
-				if (typeof ks != 'string') {
-					if (ks && ks.message) errMsg += ': ' + ks.message;
-					alert(errMsg);
-					return;
-				}
-				$ks.val(ks).click();
-				$.ajax({
-					url: baseUrl + '?service=partner&action=getInfo&format=1&ks=' + ks,
-					dataType: 'json',
-					success: function(partner) {
-						$ksDetails.html('PID ' + pid + ' - ' + partner.name);
-					},
-					error: function() {
-						$ksDetails.html('PID ' + pid + ' - ' + name);
-					}
-				});
-			},
-			error: function() {
-				alert(errMsg);
-			}
-		});
-	});
+        var info = map[pid], name = info.name, errMsg = 'Failed to create KS for ' + name;
+        $ks.val('');
+        $ksDetails.html('&nbsp;');
+        $.ajax({
+            url: baseUrl + '?service=session&action=start&secret=' + info.secret + '&type=2&userId=admin&partnerId=' + pid + '&privileges=disableentitlement,enablecategorymoderation&format=1',
+            dataType: 'json',
+            success: function(ks) {
+                if (pid != requestedPid) return;
+                if (typeof ks != 'string') {
+                    if (ks && ks.message) errMsg += ': ' + ks.message;
+                    alert(errMsg);
+                    return;
+                }
+                $ks.val(ks).click();
+                $.ajax({
+                    url: baseUrl + '?service=partner&action=getInfo&format=1&ks=' + ks,
+                    dataType: 'json',
+                    success: function(partner) {
+                        $ksDetails.html('PID ' + pid + ' - ' + partner.name);
+                    },
+                    error: function() {
+                        $ksDetails.html('PID ' + pid + ' - ' + name);
+                    }
+                });
+            },
+            error: function() {
+                alert(errMsg);
+            }
+        });
+    });
 
-	$addPid.click(function() {
+    $addPid.click(function() {
         var dialog = showDialog(500, 150),
             $pid = dialog.appendInput('Partner ID'),
             $name = dialog.appendInput('Account name'),
@@ -148,41 +148,41 @@
             addPidOption(pid, true);
             dialog.close();
         });
-	});
+    });
 
-	$dropPid.click(function() {
-		var pid = $pidSelect.val();
-		delete map[pid];
-		savePidMap();
-		$pidSelect.find('[value=' + pid + ']').remove();
-		if (Object.keys(map).length) $pidSelect.change();
-	});
+    $dropPid.click(function() {
+        var pid = $pidSelect.val();
+        delete map[pid];
+        savePidMap();
+        $pidSelect.find('[value=' + pid + ']').remove();
+        if (Object.keys(map).length) $pidSelect.change();
+    });
 
-	$editMap.click(function() {
-	    var dialog = showDialog(),
+    $editMap.click(function() {
+        var dialog = showDialog(),
             $box = $('<textarea style="width: 100%; height: 100%;"></textarea>');
-	    $box.val(JSON.stringify(map, null, 4));
-	    dialog.appendContent($box);
-	    dialog.appendButton('Save', function() {
-	        try {
-	            var value = JSON.parse($box.val());
+        $box.val(JSON.stringify(map, null, 4));
+        dialog.appendContent($box);
+        dialog.appendButton('Save', function() {
+            try {
+                var value = JSON.parse($box.val());
             } catch (ex) {
-	            alert('Parse error: ' + ex);
-	            return;
+                alert('Parse error: ' + ex);
+                return;
             }
             if (!$.isPlainObject(value)) {
                 alert('Parse error: not an object');
                 return;
             }
-	        map = globalMap[requestedEnv] = value;
+            map = globalMap[requestedEnv] = value;
             savePidMap();
             loadMapForCurrentEnv();
             dialog.close();
         });
     });
 
-	for (var env in envs) {
-	    if (envs.hasOwnProperty(env)) {
+    for (var env in envs) {
+        if (envs.hasOwnProperty(env)) {
             addEnvOption(env, env == requestedEnv);
         }
     }
@@ -192,12 +192,12 @@
         if (select) $envSelect.val(env).change();
     }
 
-	function addPidOption(pid, select) {
-		$pidSelect.append($('<option></option>').val(pid).text(map[pid].name + ' (#' + pid + ')'));
-		if (select) $pidSelect.val(pid).change();
-	}
+    function addPidOption(pid, select) {
+        $pidSelect.append($('<option></option>').val(pid).text(map[pid].name + ' (#' + pid + ')'));
+        if (select) $pidSelect.val(pid).change();
+    }
 
-	function showDialog(width, height) {
+    function showDialog(width, height) {
         function onEscape(ev) {
             if (ev.which == 27) {
                 close();
