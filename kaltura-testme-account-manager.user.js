@@ -2,7 +2,7 @@
 // @name        TestMe Account Manager
 // @description User Script for managing accounts in Kaltura TestMe Console and create sessions easily
 // @author      yusitnikov
-// @version     2.0
+// @version     2.1
 // @updateURL   https://github.com/yusitnikov/testme-account-manager/raw/master/kaltura-testme-account-manager.user.js
 // @include     http://*/api_v3/testme/*
 // @include     https://*/api_v3/testme/*
@@ -44,8 +44,10 @@
         $li5 = $('<li><button>Edit</button></li>'), $editMap = $li5.find('button'),
         $li6 = $('<li><button>+</button></li>'), $addPid = $li6.find('button'),
         $li7 = $('<li><button>-</button></li>'), $dropPid = $li7.find('button'),
+        $li8 = $('<li><input type="text" placeholder="User ID" value="admin"></li>'), $userIdInput = $li8.find('input'),
+        $li9 = $('<li><input type="text" placeholder="Privileges" value="disableentitlement,enablecategorymoderation"></li>'), $privilegesInput = $li9.find('input'),
         $ksDetails = $('<div></div>'), $ks = $('[for=ks]+input');
-    $('#kmcSubMenu').append($li).append($li2).append($li3).append($li4).append($li5).append($li6).append($li7);
+    $('#kmcSubMenu').append($li).append($li2).append($li3).append($li4).append($li5).append($li6).append($li7).append($li8).append($li9);
     $ks.parent().append($ksDetails);
 
     function loadMapForCurrentEnv() {
@@ -96,9 +98,9 @@
         }
     });
 
-    $pidSelect.change(function() {
+    $pidSelect.add($userIdInput).add($privilegesInput).change(function() {
         if (disablePidChange) return;
-        var pid = this.value;
+        var pid = $pidSelect.val();
         if (!pid) return;
         requestedPid = requestedPidMap[requestedEnv] = pid;
         GM_setValue('pidbyenv', requestedPidMap);
@@ -106,7 +108,7 @@
         $ks.val('');
         $ksDetails.html('&nbsp;');
         $.ajax({
-            url: baseUrl + '?service=session&action=start&secret=' + info.secret + '&type=2&userId=admin&partnerId=' + pid + '&privileges=disableentitlement,enablecategorymoderation&format=1',
+            url: baseUrl + '?service=session&action=start&secret=' + info.secret + '&type=2&userId=' + $userIdInput.val() + '&partnerId=' + pid + '&privileges=' + $privilegesInput.val() + '&format=1',
             dataType: 'json',
             success: function(ks) {
                 if (pid != requestedPid) return;
